@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Ma page web</title>
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="index.css" type="text/css">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
