@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ma page web</title>
+        <title>Recettes perso</title>
         <link rel="stylesheet" href="index.css" type="text/css">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
                 <a href="#" class="recipe-link" data-id="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#myModal">
                     <div class="container">
                         <img src="<?php echo $row['image']; ?>" alt="">
-                        <p id="title"><?php echo $row['name']; ?></p>
+                        <p class="title"><?php echo $row['name']; ?></p>
                     </div>
                 </a>
             <?php endforeach; ?>

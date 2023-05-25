@@ -7,7 +7,7 @@
 
 .recipes-list{
 	display: grid;
-    gap: 10px;
+    gap: 25px;
     grid-template-columns: repeat(4, minmax(0px, 1fr));
     width: 100%;
 	transition: 1s ease-in-out;
@@ -16,17 +16,17 @@
 .container{
 	background: rgb(255, 255, 255);
     border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px 1px;
+    box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 5px 1px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transition: box-shadow 0.2s ease-in-out 0s;
-	margin: 25px;
 	padding: 0px !important;
+	height: 100%;
 }
 
 .container:hover{
-	border: #9229ff solid 5px;
+	outline: thick solid rgb(0, 166, 90)
 }
 
 a{
@@ -85,6 +85,11 @@ p{
 	overflow-y: auto;
 }
 
+.modal.left .modal-content::-webkit-scrollbar,
+.modal.right .modal-content::-webkit-scrollbar {
+	display: none;
+  }
+
 .modal.left .modal-body,
 .modal.right .modal-body {
 	padding: 15px 15px 80px;
@@ -92,7 +97,7 @@ p{
 
 /*Left*/
 .modal.left.fade .modal-dialog{
-	left: 700px !important;
+	left: -200px !important;
 	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
 	   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
 		 -o-transition: opacity 0.3s linear, left 0.3s ease-out;
@@ -183,7 +188,9 @@ p{
 }
 
 .step{
-	text-align: left;
+	background-color: rgb(0, 166, 90);
+	padding: 10px;
+	color: white;
 }
 
 
@@ -241,12 +248,25 @@ font-size: 16px;
 color: #fff;
 }
 
+@media only screen
+and (min-width : 700px) 
+and (max-width : 1200px) {
+	.recipes-list {
+		grid-template-columns: repeat(2, minmax(0px, 1fr));
+		transition: 1s ease-in-out;
+	}
+
+	.title{
+		font-size: 1.5rem;
+	}
+}
+
 
 @media only screen
 and (min-width : 0px) 
-and (max-width : 1024px) {
+and (max-width : 700px) {
 	.modal-dialog {
-		max-width: 700px !important;
+		max-width: 100% !important;
 	}
 
 	.instructions{
@@ -268,5 +288,10 @@ and (max-width : 1024px) {
 		gap: 20px;
 		grid-template-columns: repeat(1, minmax(0px, 1fr));
 		transition: 1s ease-in-out;
+	}
+
+	.title{
+		font-size: 2rem;
+		line-height: 120%;
 	}
 }
