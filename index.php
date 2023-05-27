@@ -20,7 +20,7 @@
             foreach (getRecipes() as $row) : ?>
                 <a href="#" class="recipe-link" data-id="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#myModal">
                     <div class="container">
-                        <img src="<?php echo $row['image']; ?>" alt="">
+                        <img src="<?php echo $row['image']; ?>" alt="" loading="lazy">
                         <p class="title"><?php echo $row['name']; ?></p>
                     </div>
                 </a>

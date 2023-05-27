@@ -11,6 +11,7 @@ function getRecipes() {
     while ($row = $results->fetchArray()) {
         array_push($recettes, $row);
     }
+    
     return $recettes;
 }
 
