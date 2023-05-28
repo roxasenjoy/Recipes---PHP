@@ -64,8 +64,6 @@ $(document).ready(function(){
 
                     let arrayTexte = texte.split('.');
                     for (let i = 0; i < arrayTexte.length; i++) {
-                    console.log(arrayTexte[i] === '');
-                    console.log(arrayTexte[i]);
                         if(arrayTexte[i]){
                             modalBody += "<p class='instructions'>- " + arrayTexte[i] + ".<br></p>"; // Ajoute une balise <br> à chaque phrase
                         }
