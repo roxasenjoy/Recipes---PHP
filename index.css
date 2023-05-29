@@ -5,18 +5,26 @@
 	font-family: Catamaran, sans-serif;
 }
 
+body{
+	background-color: rgb(248, 248, 248);
+}
+
+.global_container{
+	width: 70%;
+	margin: auto;
+}
+
 .recipes-list{
 	display: grid;
     gap: 25px;
     grid-template-columns: repeat(4, minmax(0px, 1fr));
-    width: 100%;
 	transition: 1s ease-in-out;
 }
 
 .container{
 	background: rgb(255, 255, 255);
     border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 5px 1px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px 0px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -43,16 +51,11 @@ img{
     transition: color 0.3s ease-in-out 0s;
 }
 
-p{
-	padding: 10px;
-	background: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-	align-items: center;
-	justify-content: center;
+.title{
 	color: rgb(74, 74, 74);
+    display: block;
     font-family: Catamaran, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 700;
     -webkit-line-clamp: 2;
     line-height: 1.4rem;
@@ -60,16 +63,163 @@ p{
     text-decoration: none;
     text-overflow: ellipsis;
 	text-align: center;
+	padding: 10px;
 }
+
+.kcalRecipes{
+	background: rgb(0, 166, 90);
+    color: white;
+	border-radius: 0 20px 20px 0;
+    padding: 5px 10px;
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+	display: inline-block;
+}
+
+.timeCuisine{
+	background: rgb(0, 166, 90);
+    color: white;
+	border-radius: 0 20px 20px 0;
+    padding: 5px 10px;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+	display: inline-block;
+}
+
+.detailsContainer i{
+	padding-right: 5px;
+}
+
+/*******************
+*
+*  Design filtre 
+*
+********************/
+
+.container-filtre{
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+	
+}
+.select-btn{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-radius: 8px;
+	width: 100%;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.select-btn .btn-text{
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+}
+.select-btn .arrow-dwn{
+    display: flex;
+    height: 21px;
+    width: 21px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 50%;
+    background: rgb(225, 130, 45);
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+.select-btn.open .arrow-dwn{
+    transform: rotate(-180deg);
+}
+.list-items{
+    position: absolute;
+	z-index: 9999;
+	width: 100%;
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: none;
+}
+.select-btn.open ~ .list-items{
+    display: block;
+}
+
+/* Always show the scrollbar of the dropdown */
+.select-btn.open ~ .list-items::-webkit-scrollbar {
+    width: 8px;
+    height: 0;
+}
+.select-btn.open ~ .list-items::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 8px;
+}
+.select-btn.open ~ .list-items::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,.3);
+}
+
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 15px;
+    border-radius: 8px;
+}
+.list-items .item:hover{
+    background-color: rgba(225, 129, 45, 0.164);
+}
+.item .item-text{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+.item.checked .checkbox{
+    background-color: rgb(225, 130, 45);
+    border-color: rgb(225, 130, 45);
+}
+.checkbox .check-icon{
+    color: #fff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+.item.checked .check-icon{
+    transform: scale(1);
+}
+
 
 /*******************************
 * MODAL AS LEFT/RIGHT SIDEBAR
 * Add "left" or "right" in modal parent div, after class="modal".
 * Get free snippets on bootpen.com
 *******************************/
-
-
-
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {
 	position: fixed;
@@ -122,19 +272,6 @@ p{
 
 }
 
-	
-/*Right*/
-.modal.right.fade .modal-dialog {
-	right: -320px;
-	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-	   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		 -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-			transition: opacity 0.3s linear, right 0.3s ease-out;
-}
-
-.modal.right.fade.in .modal-dialog {
-	right: 0;
-}
 
 /* ----- MODAL STYLE ----- */
 .modal-content {
@@ -161,7 +298,6 @@ p{
 	text-align: left;
 	line-height: 1;
 	margin-bottom: 45px;
-
 }
 
 .ingredients{
@@ -171,14 +307,18 @@ p{
 	display: block;
 	padding: 0 !important;
 	font-weight: 100;
+	font-family: Catamaran, sans-serif;
+    font-size: 1.4rem;
 }
 .title-ingredients{
 	color: rgb(74, 74, 74);
 	font-weight: 800;
-	font-size: 1.5rem;
-	padding: 0 !important;
-	text-align: left;
+	font-size: 1.4rem;
+	text-align: center;
 	display: block;
+	background-color: rgb(225, 130, 45);
+    padding: 10px !important;
+    color: white;
 }
 
 .instructions{
@@ -195,6 +335,15 @@ p{
 	background-color: rgb(0, 166, 90);
 	padding: 10px;
 	color: white;
+	font-family: Catamaran, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+	text-align: center;
+}
+
+.time{
+	color: rgb(155, 155, 155);
+    font-size: 1.4rem;
 }
 
 

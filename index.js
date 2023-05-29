@@ -1,27 +1,5 @@
 $(document).ready(function(){
 
-    function cutBeforeSecondUppercase(str) {
-        let count = 0;
-        let index = 0;
-
-        for (let i = 0; i < str.length; i++) {
-            if (str[i] === str[i].toUpperCase() && str[i] !== str[i].toLowerCase()) {
-                count++;
-
-                if (count === 2) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-
-        return str.substring(index);
-    }
-
-    function supprimerAccents(chaine) {
-        return chaine.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-
     $(".recipe-link").click(function(e){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         
@@ -29,7 +7,7 @@ $(document).ready(function(){
         
         // Envoie une requête AJAX au serveur avec l'ID
         $.ajax({
-            url: 'recipe_details.php',
+            url: 'src/recipe_details.php',
             type: 'GET',
             data: { id: id },
             success: function(response) {
@@ -43,14 +21,12 @@ $(document).ready(function(){
                 /* Changer l'image de la photo */
                 $("#img-recipes").attr("src", recettes[0].image);
 
-                /* Nom de la recette */
-                modalBody += '<h2  class="recipe-title"> ' + recettes[0].name + '</h2>';
-
+                
+                modalBody += addName(recettes[0]);
+                modalBody += addTimeAndKcal(recettes[0]);
+                
                 /* Liste des ingrédients */
-                modalBody += "<p class='title-ingredients'> Ingrédients pour 2 personnes : </p>";
-                for (var i = 0; i < ingredients.length; i++) {
-                    modalBody += "<p class='ingredients'> - " + ingredients[i].name + "</p>";
-                }
+                addIngredients(ingredients, modalBody);
 
                 /* Liste des instructions */
                 for (var i = 0; i < instructions.length; i++) {
@@ -76,4 +52,49 @@ $(document).ready(function(){
             }
         });
     });
+
+
+    
+    function cutBeforeSecondUppercase(str) {
+        let count = 0;
+        let index = 0;
+
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] === str[i].toUpperCase() && str[i] !== str[i].toLowerCase()) {
+                count++;
+
+                if (count === 2) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return str.substring(index);
+    }
+
+    function addIngredients(ingredients, modalBody){
+        modalBody += "<p class='title-ingredients'> Ingrédients pour 2 personnes : </p>";
+        for (var i = 0; i < ingredients.length; i++) {
+            modalBody += "<p class='ingredients'> - " + ingredients[i].name + "</p>";
+        }
+
+        return modalBody;
+    }
+
+    function addName(recette){
+        return '<h2  class="recipe-title"> ' + recette.name + '</h2>';
+    }
+
+    function addTimeAndKcal(recette){
+        if(recette.kcal){
+            return '  <h6  class="time"> \
+                                Temps total ' + recette.time_total + ' min , \
+                                Préparation ' + recette.time_preparation + ' min,  \
+                                ' + recette.kcal + ' kcal \
+                            </h6>';
+        }
+
+        return '';
+    }
 });

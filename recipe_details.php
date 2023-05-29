@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Permet d'obtenir tous les détails relatifs à la modal dès qu'on clique sur une recette
+ */
+
 require 'recipes.php';
 
 header('Content-Type: application/json');
