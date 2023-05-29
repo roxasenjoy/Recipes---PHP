@@ -7,7 +7,7 @@ $(document).ready(function(){
         
         // Envoie une requête AJAX au serveur avec l'ID
         $.ajax({
-            url: 'src/recipe_details.php',
+            url: 'recipe_details.php',
             type: 'GET',
             data: { id: id },
             success: function(response) {

@@ -19,7 +19,7 @@ $(document).ready(function(){
                 if(checked && checked.length > 0){
 
                     checked.forEach(e => function(){
-                        itemSelected.push(e.innerText);
+                        itemSelected.push(e);
                         console.log(itemSelected);
                     });
 
