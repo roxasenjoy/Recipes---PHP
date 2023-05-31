@@ -19,6 +19,11 @@ if (isset($_POST['code'])) {
 <html>
     <head>
         <title>Recettes perso</title>
+
+        <meta name="description" content="Free Web tutorials">
+        <meta name="keywords" content="HTML,CSS,JavaScript">
+        <meta name="author" content="John Doe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- jQuery et Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -31,6 +36,9 @@ if (isset($_POST['code'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <script src="https://kit.fontawesome.com/128f69e9e2.js"></script>
+
+
+        
     </head>
 
     <body>
@@ -41,47 +49,60 @@ if (isset($_POST['code'])) {
 
                 <!-- <h1> Des idées de recettes  </h1> -->
 
-                <!-- Liste des filtres disponibles -->
-                <div class="filtre">
+                <div class="pos-f-t">
+                   
+                    <nav class="filtreBtn-container">
+                        <button class="navbar-toggler filtreBtn" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa-solid fa-filter"></i> Filtres
+                        </button>
+                    </nav>
 
-                    <!-- Filtre sur les calories -->
+                    <div class="collapse" id="navbarToggleExternalContent">
+                        <!-- Liste des filtres disponibles -->
+                        <div class="filtre">
+                            <!-- Filtre sur les calories -->
 
-                    <!-- Barre de recherche -->
+                            <!-- Barre de recherche -->
 
-                    <!-- Filtre sur les ingrédients -->
+                            <!-- Filtre sur les ingrédients -->
 
-                    <!-- Filtre sur le temps de préparation -->
-                    <div class="container-filtre">
-                        <div class="select-btn">
-                            <span class="btn-text">Temps de préparation</span>
-                            <span class="arrow-dwn">
-                            <i class="fa-solid fa-chevron-down"></i>
-                            </span>
-                        </div>
-
-                        <ul class="list-items">
-                            <?php
-
-                                $timeList = [5,10,15,20,25,30,35,40,45,50,55,60];
-                                foreach ($timeList as $time) : 
-                            ?>
-
-                                <li class="item">
-                                    <span class="checkbox">
-                                        <i class="fa-solid fa-check check-icon"></i>
+                            <!-- Filtre sur le temps de préparation -->
+                            <div class="container-filtre">
+                                <div class="select-btn">
+                                    <span class="btn-text">Temps de préparation</span>
+                                    <span class="arrow-dwn">
+                                    <i class="fa-solid fa-chevron-down"></i>
                                     </span>
-                                    <span class="item-text"><?php echo $time; ?> min</span>
-                                </li>
+                                </div>
 
-                            <?php endforeach; ?> 
-                        </ul>
+                                <ul class="list-items">
+                                    <?php
+
+                                        $timeList = [5,10,15,20,25,30,35,40,45,50,55,60];
+                                        foreach ($timeList as $time) : 
+                                    ?>
+
+                                        <li class="item">
+                                            <span class="checkbox">
+                                                <i class="fa-solid fa-check check-icon"></i>
+                                            </span>
+                                            <span class="item-text"><?php echo $time; ?> min</span>
+                                        </li>
+
+                                    <?php endforeach; ?> 
+                                </ul>
+                            </div>
+
+                            <input type="text" class="research" placeholder="Rechercher une recette...">
+
+                            <button class="researchBtn">
+                                Filtrer
+                            </button>
+                        </div>
                     </div>
+                </div> 
 
-                    <button class="filtreBtn">
-                        Filtrer
-                    </button>
-
-                </div>
+                
 
 
                 <!-- Liste contenants toutes les recettes disponibles -->

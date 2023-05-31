@@ -45,21 +45,24 @@ $(document).ready(function(){
                     btnText.innerText = `${itemSelected}`;
                 }else{
                     btnText.innerText = "Temps de préparation";
+                    resetFilterStorage();
                 }
         });
     });
 
 
-    $(".filtreBtn").click(function(e) {
+    $(".researchBtn").click(function(e) {
 
         let time = localStorage.getItem('time');
+        let research = $(".research").val();
     
         $.ajax({
             url: 'filter.php',
             type: 'GET',
-            data: { time:time },
+            data: { time:time, research:research },
             dataType: 'json', // Add this line, make sure the response is JSON formatted
             success: function(response) {
+
                 // Vider la liste de recette pour la changer par une nouvelle
                 const recipesContainer = document.getElementsByClassName('recipes-list')[0];
                 recipesContainer.innerHTML = '';
@@ -73,7 +76,7 @@ $(document).ready(function(){
                         <a href="#" class="recipe-link" data-id="${recipe.id}" data-toggle="modal" data-target="#myModal">
                             <div class="container">
                                 <img src="${recipe.image}" alt="" loading="lazy">
-                                <p class="title">${recipe.name}</p>
+                                <p class="title">${recipe.name} ${recipe.id}</p>
                                 <div>
                                     ${recipe.time_total ? `
                                         <p class="kcalRecipes detailsContainer">
@@ -89,8 +92,6 @@ $(document).ready(function(){
                             </div>
                         </a>
                     `;
-    
-                    
                 });
 
                 $(".recipes-list").html(listRecipes);

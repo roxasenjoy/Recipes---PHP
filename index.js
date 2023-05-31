@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
-    $(".recipe-link").click(function(e){
+    $(document).on("click", ".recipe-link", function(e){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         
         var id = $(this).data('id');  // Récupère l'ID de l'élément cliqué
-        
+
         // Envoie une requête AJAX au serveur avec l'ID
         $.ajax({
             url: 'recipe_details.php',
@@ -48,6 +48,9 @@ $(document).ready(function(){
                 $(".modal-body").html(modalBody);
 
                 $('#myModal').modal('show');
+            },
+            error: function(error){
+                console.log(error);
             }
         });
     });

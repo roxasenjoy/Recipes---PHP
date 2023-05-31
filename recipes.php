@@ -2,13 +2,20 @@
 
 $db = new SQLite3('db.db');
 
-function getRecipes($time = '') {
+function getRecipes($time = '', $researchText ='') {
     global $db;
 
     $recettes = [];
     
     $query = 'SELECT * FROM recette';
-    $query = addTime($query, $time);
+    $whereClauses = [];
+    $query = addTime($query, $time, $whereClauses);
+    $query = addResearchText($query, $researchText, $whereClauses);
+
+    if (!empty($whereClauses)) {
+        $query .= ' WHERE ' . implode(' AND ', $whereClauses);
+    }
+    
     $query .= ' ORDER BY id DESC';
 
     $results = $db->query($query);
@@ -19,11 +26,17 @@ function getRecipes($time = '') {
     return $recettes;
 }
 
-function addTime($query, $time){
-    if (!empty($time)) {
-        $query .= ' WHERE time_total IN ('. $time . ')';
+function addResearchText($query, $researchText, &$whereClauses){
+    if (!empty($researchText)) {
+        $whereClauses[] = 'name LIKE "%' . SQLite3::escapeString($researchText) . '%"';
     }
+    return $query;
+}
 
+function addTime($query, $time, &$whereClauses){
+    if (!empty($time)) {
+        $whereClauses[] = 'time_total IN ('. SQLite3::escapeString($time) . ')';
+    }
     return $query;
 }
 
