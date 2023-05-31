@@ -1,6 +1,6 @@
 <?php
 
-$db = new SQLite3('db-pp.db');
+$db = new SQLite3('db.db');
 
 function getRecipes($time = '') {
     global $db;
