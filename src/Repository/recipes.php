@@ -2,29 +2,39 @@
 
 $db = new SQLite3('db-pp.db');
 
-function getRecipes($time = '') {
+/**
+ * Permet d'ajouter un code de sécurité pour se connecter
+ */
+function addCodeHash(){
+    global $db;
+    $password = password_hash('', PASSWORD_DEFAULT);
+ 
+    $q = $db->prepare('INSERT INTO user (code) VALUES (:code)');
+    $q->bindValue('code', $password);
+    $res = $q->execute();
+
+    if ($res) {
+        echo "Création de compte réussie";
+    }
+}
+
+function verifyCode($code){
+    global $db;
+ 
+    $res = $db->querySingle('SELECT code FROM user WHERE id = 1');
+    return password_verify($code, $res);
+}
+
+function getRecipes() {
     global $db;
 
     $recettes = [];
-    
-    $query = 'SELECT * FROM recette';
-    $query = addTime($query, $time);
-    $query .= ' ORDER BY id DESC';
-
-    $results = $db->query($query);
-
+    $results = $db->query('SELECT * FROM recette ORDER BY id desc');
     while ($row = $results->fetchArray()) {
         array_push($recettes, $row);
     }
+
     return $recettes;
-}
-
-function addTime($query, $time){
-    if (!empty($time)) {
-        $query .= ' WHERE time_total IN ('. $time . ')';
-    }
-
-    return $query;
 }
 
 function getIngredients($id) {

@@ -20,13 +20,12 @@ $(document).ready(function(){
 
                 /* Changer l'image de la photo */
                 $("#img-recipes").attr("src", recettes[0].image);
-
                 
                 modalBody += addName(recettes[0]);
                 modalBody += addTimeAndKcal(recettes[0]);
                 
                 /* Liste des ingrédients */
-                addIngredients(ingredients, modalBody);
+                modalBody += addIngredients(ingredients, modalBody);
 
                 /* Liste des instructions */
                 for (var i = 0; i < instructions.length; i++) {
@@ -73,13 +72,14 @@ $(document).ready(function(){
         return str.substring(index);
     }
 
-    function addIngredients(ingredients, modalBody){
-        modalBody += "<p class='title-ingredients'> Ingrédients pour 2 personnes : </p>";
+    function addIngredients(ingredients){
+        let ingredientToAdd = '';
+        ingredientToAdd += "<p class='title-ingredients'> Ingrédients pour 2 personnes : </p>";
         for (var i = 0; i < ingredients.length; i++) {
-            modalBody += "<p class='ingredients'> - " + ingredients[i].name + "</p>";
+            ingredientToAdd += "<p class='ingredients'> - " + ingredients[i].name + "</p>";
         }
 
-        return modalBody;
+        return ingredientToAdd;
     }
 
     function addName(recette){

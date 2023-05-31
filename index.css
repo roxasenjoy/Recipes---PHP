@@ -102,9 +102,35 @@ img{
 *
 ********************/
 
+.filtre{
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filtreBtn{
+    background-color: rgb(225, 130, 45);
+    height: 50px;
+    border-radius: 8px;
+    padding: 0 16px;
+    border: none;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    position:relative;
+    transition: ease-in-out 0.1s;
+    bottom: 0px;
+    width: 100px;
+}
+
+.filtreBtn:hover{
+    bottom: 5px;
+    transition: ease-in-out .1s;
+    background-color: rgb(196, 112, 38);
+}
+
 .container-filtre{
     position: relative;
-    max-width: 320px;
+    max-width: 250px;
     width: 100%;
 	
 }
@@ -118,7 +144,7 @@ img{
 	width: 100%;
     cursor: pointer;
     background-color: #fff;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .select-btn .btn-text{
     font-size: 17px;
@@ -142,7 +168,7 @@ img{
 }
 .list-items{
     position: absolute;
-	z-index: 9999;
+	z-index: 2;
 	width: 100%;
     margin-top: 15px;
     border-radius: 8px;
@@ -406,8 +432,8 @@ color: #fff;
 }
 
 @media only screen
-and (min-width : 700px) 
-and (max-width : 1200px) {
+and (min-width : 600px) 
+and (max-width : 1000px) {
 	.recipes-list {
 		grid-template-columns: repeat(2, minmax(0px, 1fr));
 		transition: 1s ease-in-out;
@@ -428,7 +454,7 @@ and (max-width : 1200px) {
 
 @media only screen
 and (min-width : 0px) 
-and (max-width : 1000px) {
+and (max-width : 700px) {
 	.modal-dialog {
 		max-width: initial !important;
 	}

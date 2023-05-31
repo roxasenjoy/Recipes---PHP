@@ -39,85 +39,53 @@ if (isset($_POST['code'])) {
 
             <div class="global_container">
 
-                <h1> Des idées de recettes  </h1>
+                <!-- <h1> Des idées de recettes  </h1> -->
 
                 <!-- Liste des filtres disponibles -->
                 <div class="filtre">
 
                     <!-- Filtre sur les calories -->
-                    <div class="container-filtre">
-                        <div class="select-btn">
-                            <span class="btn-text">Temps</span>
-                            <span class="arrow-dwn">
-                            <i class="fa-solid fa-chevron-down"></i>
-                            </span>
-                        </div>
-
-                        <ul class="list-items">
-                            <li class="item">
-                                <span class="checkbox">
-                                    <i class="fa-solid fa-check check-icon"></i>
-                                </span>
-                                <span class="item-text">French</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">English</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Spanish</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Chinese</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Japanese</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Korean</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Italian</span>
-                            </li>
-                            <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">German</span>
-                            </li>
-                        </ul>
-                    </div>
-
-
 
                     <!-- Barre de recherche -->
 
                     <!-- Filtre sur les ingrédients -->
 
                     <!-- Filtre sur le temps de préparation -->
+                    <div class="container-filtre">
+                        <div class="select-btn">
+                            <span class="btn-text">Temps de préparation</span>
+                            <span class="arrow-dwn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                        </div>
+
+                        <ul class="list-items">
+                            <?php
+
+                                $timeList = [5,10,15,20,25,30,35,40,45,50,55,60];
+                                foreach ($timeList as $time) : 
+                            ?>
+
+                                <li class="item">
+                                    <span class="checkbox">
+                                        <i class="fa-solid fa-check check-icon"></i>
+                                    </span>
+                                    <span class="item-text"><?php echo $time; ?> min</span>
+                                </li>
+
+                            <?php endforeach; ?> 
+                        </ul>
+                    </div>
+
+                    <button class="filtreBtn">
+                        Filtrer
+                    </button>
 
                 </div>
 
 
                 <!-- Liste contenants toutes les recettes disponibles -->
-                <div class="recipes-list" style="padding: 15px">
+                <div class="recipes-list">
                     <?php 
 
                     foreach (getRecipes() as $row) : ?>
