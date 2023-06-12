@@ -78,7 +78,7 @@ if (isset($_POST['code'])) {
                                 <ul class="list-items">
                                     <?php
 
-                                        $timeList = [5,10,15,20,25,30,35,40,45,50,55,60];
+                                        $timeList = [5,10,15,20,25,30,35,40,45,50,55,60,65,70];
                                         foreach ($timeList as $time) : 
                                     ?>
 
@@ -132,8 +132,17 @@ if (isset($_POST['code'])) {
           
             <!-- Modal -->
             <div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+                <div class="closeModal" id="closeModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+
+                        <div class="addCart">
+                            Ajouter à la liste de mes recettes
+                        </div>
 
                         <div class="modal-header">
                             <img src="" alt="" id="img-recipes">

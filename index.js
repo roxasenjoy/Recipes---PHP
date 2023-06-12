@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+
+    $("#closeModal").click(function(){
+        $("#myModal").modal('hide');
+      });
+
     $(document).on("click", ".recipe-link", function(e){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         

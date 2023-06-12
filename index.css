@@ -291,10 +291,9 @@ img{
 *******************************/
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {
-	position: fixed;
+
 	margin: auto;
 	width: 700px;
-	height: 100%;
 	-webkit-transform: translate3d(0%, 0, 0);
 		-ms-transform: translate3d(0%, 0, 0);
 		 -o-transform: translate3d(0%, 0, 0);
@@ -343,10 +342,31 @@ img{
 
 
 /* ----- MODAL STYLE ----- */
+.addCart {
+    position: fixed;
+    bottom: 0;
+    /* left: 0; */
+    z-index: 9;
+    text-align: center;
+    font-weight: 900;
+    width: 700px;
+    text-align: center;
+    /* height: 100%; */
+    padding: 15px 0;
+    background: rgb(225, 130, 45);
+    color: #FAFAFA;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* margin: auto; */
+}
+
 .modal-content {
 	border-radius: 0;
 	border: none;
+    position: relative;
 }
+
 
 .modal-header {
 	border-bottom-color: #EEEEEE;
@@ -474,8 +494,12 @@ color: #fff;
 	max-width: initial !important;
 }
 
+.closeModal{
+    display: none;
+}
+
 @media only screen
-and (min-width : 600px) 
+and (min-width : 700px) 
 and (max-width : 1000px) {
 	.recipes-list {
 		grid-template-columns: repeat(2, minmax(0px, 1fr));
@@ -502,21 +526,67 @@ and (max-width : 1000px) {
 @media only screen
 and (min-width : 0px) 
 and (max-width : 700px) {
+
+    .closeModal{
+        display: initial;
+        z-index: 50;
+        font-size: 50px;
+        position: absolute;
+        top: 1.5%;
+        right: 1.5%;
+    }
+
+    .closeModal i{
+        background: white;
+        color: rgb(225, 130, 45);
+        border-radius: 50%;
+        padding: 5px 15px;
+    }
+
 	.modal-dialog {
 		max-width: initial !important;
 	}
 
+    .addCart{
+        width: 100%;
+    }
+
+    .modal.left .modal-dialog{
+        width: 100%;
+    }
+
+    #img-recipes,
+    .modal-header{
+        height: 300px;
+    }
+
+    .step{
+        font-size: 1rem;
+    }
+
+    .recipe-title{
+        font-size: 1rem;
+    }
+    .time{
+        font-size: 0.7rem;;
+    }
+
+    .title-ingredients{
+        font-size: 1rem;
+    }
+
 	.instructions{
 		color: rgb(74, 74, 74);
 		padding: 0 !important;
-		font-size: 1.6rem;
+		font-size: 0.8rem;
 		font-weight: 500;
+        line-height: 125%;
 	}
 
 	.ingredients{
 		color: rgb(74, 74, 74);
 		padding: 0 !important;
-		font-size: 1.6rem;
+		font-size: 0.8rem;
 		font-weight: 500;
 	}
 
@@ -528,7 +598,7 @@ and (max-width : 700px) {
 	}
 
 	.title{
-		font-size: 2rem;
+		font-size: 1rem;
 		line-height: 120%;
 	}
 
