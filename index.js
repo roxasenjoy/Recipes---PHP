@@ -72,11 +72,14 @@ $(document).ready(function(){
      * Ajoute le contour pour toutes les recettes qui sont déjà sélectionnées
      */
     function addExistingRecipesWhenLogIn(){
-        JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
-            console.log(e);
-            $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
-            $("#" + e).css('border-radius', '1rem');
-        });
+        if(localStorage.getItem('recipesAdded')){
+            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
+                console.log(e);
+                $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
+                $("#" + e).css('border-radius', '1rem');
+            });
+        }
+        
     }
 
     /**

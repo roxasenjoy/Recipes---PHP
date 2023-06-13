@@ -601,8 +601,22 @@ and (max-width : 700px) {
         width: 95%;
     }
 
+    .container-filtre,
     .research{
-        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .container-filtre{
+        max-width: initial;
+    }
+    
+    .filtre{
+        flex-direction: column;
+    }
+
+    .research,
+    .researchBtn{
+        width: 100%;
     }
 
 }
