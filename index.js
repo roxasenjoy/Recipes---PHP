@@ -1,14 +1,17 @@
 $(document).ready(function(){
 
+    let selectedRecipeId = null; // Cette variable va stocker l'id de la recette sélectionnée
+    addExistingRecipesWhenLogIn();
 
     $("#closeModal").click(function(){
         $("#myModal").modal('hide');
-      });
+    });
 
     $(document).on("click", ".recipe-link", function(e){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         
-        var id = $(this).data('id');  // Récupère l'ID de l'élément cliqué
+        let id = selectedRecipeId = $(this).data('id');  // Récupère l'ID de l'élément cliqué
+        updateAddCart(id);
 
         // Envoie une requête AJAX au serveur avec l'ID
         $.ajax({
@@ -60,8 +63,79 @@ $(document).ready(function(){
         });
     });
 
+    /* Ajouter les éléments dans le localStorage */
+    $("#addCart").click(function() {
+        addRecipesToCart(selectedRecipeId);
+    });
 
+    /**
+     * Ajoute le contour pour toutes les recettes qui sont déjà sélectionnées
+     */
+    function addExistingRecipesWhenLogIn(){
+        JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
+            console.log(e);
+            $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
+            $("#" + e).css('border-radius', '1rem');
+        });
+    }
+
+    /**
+     * Ajoute les recettes dans le localStorage
+     * @param {*} selectedRecipeId 
+     */
+    function addRecipesToCart(selectedRecipeId){
+        let recipesList = JSON.parse(localStorage.getItem('recipesAdded')) ?? [];
+
+        if (recipesList.includes(selectedRecipeId)) {
+            // Suppression de l'id déjà présent
+            recipesList = recipesList.filter(id => id !== selectedRecipeId);
+            updateBorderOfRecipesSelected(selectedRecipeId, false);
+          } else {
+            // Ajout de l'élément dans la liste
+            recipesList.push(selectedRecipeId);
+            updateBorderOfRecipesSelected(selectedRecipeId, true);
+          }
+
+        localStorage.setItem('recipesAdded', JSON.stringify(recipesList));
+        updateAddCart(selectedRecipeId);
+    }
+
+    /**
+     * Rajouter un contour pour les recettes qui sont sélectionnés.
+     * @param {*} selectedRecipeId 
+     */
+    function updateBorderOfRecipesSelected(selectedRecipeId, display){
+
+        if(display){
+            $("#" + selectedRecipeId).css('outline', 'thick solid rgb(225, 130, 45)');
+            $("#" + selectedRecipeId).css('border-radius', '1rem');
+        } else {
+            $("#" + selectedRecipeId).css('outline', 'initial');
+        }
+    }
+
+    /**
+     * Modification du message d'ajout à la liste des recettes pour prévenir qu'il existe déjà.
+     * @param {*} selectedRecipeId 
+     */
+    function updateAddCart(selectedRecipeId){
+        const idIsInRecipesAdded = localStorage.getItem('recipesAdded') ? localStorage.getItem('recipesAdded').includes(selectedRecipeId) : false;
+
+        if(idIsInRecipesAdded){
+            // Changer le texte + la couleur du fond - DEJA PRESENT
+            $('#addCart').css("background-color", "#dc3545");
+            $("#addCart").text("Supprimer de la liste de mes recettes");
+        } else {
+            $('#addCart').css("background-color", "rgb(225, 130, 45)");
+            $("#addCart").text("Ajouter à la liste des mes recettes");
+        }
+    }
     
+    /**
+     * Faire sauter le texte poubelle au départ des phrases.
+     * @param {*} str 
+     * @returns 
+     */
     function cutBeforeSecondUppercase(str) {
         let count = 0;
         let index = 0;
@@ -80,6 +154,11 @@ $(document).ready(function(){
         return str.substring(index);
     }
 
+    /**
+     * Ajoute les ingrédients à la recette
+     * @param {*} ingredients 
+     * @returns 
+     */
     function addIngredients(ingredients){
         let ingredientToAdd = '';
         ingredientToAdd += "<p class='title-ingredients'> Ingrédients pour 2 personnes : </p>";
@@ -90,10 +169,20 @@ $(document).ready(function(){
         return ingredientToAdd;
     }
 
+    /**
+     * Ajout le nom de la recette 
+     * @param {*} recette 
+     * @returns 
+     */
     function addName(recette){
         return '<h2  class="recipe-title"> ' + recette.name + '</h2>';
     }
 
+    /**
+     * Ajout le temps et le nombre de kcal de la recette 
+     * @param {*} recette 
+     * @returns 
+     */
     function addTimeAndKcal(recette){
         if(recette.kcal){
             return '  <h6  class="time"> \

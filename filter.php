@@ -6,4 +6,5 @@ $research = $_GET['research'];
 
 $recipes = getRecipes($time, $research);
 
+
 echo json_encode($recipes);

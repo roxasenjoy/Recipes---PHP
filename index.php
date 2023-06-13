@@ -66,6 +66,8 @@ if (isset($_POST['code'])) {
 
                             <!-- Filtre sur les ingrédients -->
 
+                            <!-- Filtre sur les recettes sélectionnées -->
+
                             <!-- Filtre sur le temps de préparation -->
                             <div class="container-filtre">
                                 <div class="select-btn">
@@ -110,8 +112,9 @@ if (isset($_POST['code'])) {
                     <?php 
 
                     foreach (getRecipes() as $row) : ?>
-                        <a href="#" class="recipe-link" data-id="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#myModal">
+                        <a href="#" class="recipe-link" data-id="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#myModal" id="<?php echo $row['id']; ?>">
                             <div class="container">
+
                                 <img src="<?php echo $row['image']; ?>" alt="" loading="lazy">
                                 <p class="title"><?php echo $row['name']; ?></p>
                                 <div>
@@ -140,7 +143,7 @@ if (isset($_POST['code'])) {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
-                        <div class="addCart">
+                        <div class="addCart" id="addCart" onClick="addRecipesToCart()">
                             Ajouter à la liste de mes recettes
                         </div>
 
@@ -179,5 +182,6 @@ if (isset($_POST['code'])) {
 
     <script src="index.js"></script>
     <script src="filter.js"></script>
+    
 
 </html>

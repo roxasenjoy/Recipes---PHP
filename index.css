@@ -345,20 +345,15 @@ img{
 .addCart {
     position: fixed;
     bottom: 0;
-    /* left: 0; */
+    cursor: pointer;
     z-index: 9;
     text-align: center;
     font-weight: 900;
     width: 700px;
     text-align: center;
-    /* height: 100%; */
     padding: 15px 0;
     background: rgb(225, 130, 45);
     color: #FAFAFA;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* margin: auto; */
 }
 
 .modal-content {
