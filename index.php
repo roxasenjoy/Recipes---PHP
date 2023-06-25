@@ -66,7 +66,7 @@ if (isset($_POST['code'])) {
 
                             <!-- Filtre sur les ingrédients -->
 
-                            <!-- Filtre sur les recettes sélectionnées -->
+                           
 
                             <!-- Filtre sur le temps de préparation -->
                             <div class="container-filtre">
@@ -95,17 +95,24 @@ if (isset($_POST['code'])) {
                                 </ul>
                             </div>
 
+                              <!-- Filtre sur les recettes sélectionnées -->
+                            <div class="containerRecipesAdded">
+                                <input type="checkbox" id="canUserRecipesAddedFilter" name="canUserRecipesAddedFilter">
+                                <label for="canUserRecipesAddedFilter">Afficher mes recettes</label>
+                            </div>
+
+                            <!-- Barre de recherche -->
                             <input type="text" class="research" placeholder="Rechercher une recette...">
 
+                          
+                            
                             <button class="researchBtn">
                                 Filtrer
                             </button>
                         </div>
                     </div>
                 </div> 
-
-                
-
+                      
 
                 <!-- Liste contenants toutes les recettes disponibles -->
                 <div class="recipes-list">

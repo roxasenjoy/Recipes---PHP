@@ -14,6 +14,7 @@ $ingredients = getIngredients($id);
 $recettes = getRecipeById($id);
 $instructions = getInstructions($id);
 
+
 echo json_encode(array(
     "ingredients" => $ingredients,
     "recettes" => $recettes,

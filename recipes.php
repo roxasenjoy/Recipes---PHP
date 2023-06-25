@@ -2,28 +2,53 @@
 
 $db = new SQLite3('db.db');
 
-function getRecipes($time = '', $researchText ='') {
+
+function getRecipes($time = '', $researchText ='', $recipesAdded = '', $canUserRecipesAddedFilter = false) {
     global $db;
 
     $recettes = [];
-    
+
     $query = 'SELECT * FROM recette';
     $whereClauses = [];
     $query = addTime($query, $time, $whereClauses);
     $query = addResearchText($query, $researchText, $whereClauses);
+    $orderStatement = addRecipesAdded($recipesAdded, $canUserRecipesAddedFilter);
 
     if (!empty($whereClauses)) {
         $query .= ' WHERE ' . implode(' AND ', $whereClauses);
     }
     
-    $query .= ' ORDER BY id DESC';
+    if (!empty($recipesAdded) && $canUserRecipesAddedFilter === 'true') {
+        $query .= ' ORDER BY ' . $orderStatement . ', id DESC';
+    } else {
+        $query .= ' ORDER BY id DESC';
+    }
+    
 
     $results = $db->query($query);
 
     while ($row = $results->fetchArray()) {
         array_push($recettes, $row);
     }
+
     return $recettes;
+}
+
+function addRecipesAdded($recipesAdded, $canUserRecipesAddedFilter){
+    $caseStatement = 'CASE id ';
+
+    if (!empty($recipesAdded) && $canUserRecipesAddedFilter === 'true') {
+        foreach($recipesAdded as $index => $id) {
+            $caseStatement .= 'WHEN ' . $id . ' THEN ' . $index . ' ';
+        }
+
+        $caseStatement .= 'ELSE ' . count($recipesAdded) . ' END';
+    }
+    else {
+        $caseStatement = 'id';
+    }
+
+    return $caseStatement;
 }
 
 function addResearchText($query, $researchText, &$whereClauses){
@@ -39,6 +64,7 @@ function addTime($query, $time, &$whereClauses){
     }
     return $query;
 }
+
 
 function getIngredients($id) {
     global $db;

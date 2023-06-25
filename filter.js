@@ -54,11 +54,14 @@ $(document).ready(function(){
 
         let time = localStorage.getItem('time');
         let research = $(".research").val();
+        let canUserRecipesAddedFilter = $("#canUserRecipesAddedFilter").prop('checked');
+        let recipesAdded = JSON.parse(localStorage.getItem('recipesAdded'));
+
     
         $.ajax({
             url: 'filter.php',
             type: 'GET',
-            data: { time:time, research:research },
+            data: { time:time, research:research, recipesAdded: recipesAdded, canUserRecipesAddedFilter:canUserRecipesAddedFilter},
             dataType: 'json', // Add this line, make sure the response is JSON formatted
             success: function(response) {
 
@@ -94,6 +97,9 @@ $(document).ready(function(){
                 });
 
                 $(".recipes-list").html(listRecipes);
+
+                addBorderOfRecipesAdded();
+                
             },
             error: function(error){
                 console.log(error);
@@ -104,6 +110,15 @@ $(document).ready(function(){
 
     function resetFilterStorage(){
         localStorage.removeItem('time');
+    }
+    
+    function addBorderOfRecipesAdded(){
+        if(localStorage.getItem('recipesAdded')){
+            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
+                $("[data-id='" + e + "']").css('outline', 'thick solid rgb(225, 130, 45)');
+                $("[data-id='" + e + "']").css('border-radius', '1rem');
+            });
+        }
     }
     
 

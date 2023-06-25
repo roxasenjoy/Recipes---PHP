@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     let selectedRecipeId = null; // Cette variable va stocker l'id de la recette sélectionnée
     addExistingRecipesWhenLogIn();
+    setupRecipesAdded();
 
     $("#closeModal").click(function(){
         $("#myModal").modal('hide');
@@ -68,13 +69,32 @@ $(document).ready(function(){
         addRecipesToCart(selectedRecipeId);
     });
 
+    function setupRecipesAdded(){
+        if(localStorage.getItem('recipesAdded')){
+            const recipesAdded = localStorage.getItem('recipesAdded');
+
+            // Envoie une requête AJAX au serveur avec l'ID
+            $.ajax({
+                url: 'recipes_added.php',
+                type: 'GET',
+                data: { recipesAdded: recipesAdded },
+                success: function(response) {
+                    // console.log(response);
+                    
+                },
+            });
+        }
+
+        
+    }
+
     /**
      * Ajoute le contour pour toutes les recettes qui sont déjà sélectionnées
      */
     function addExistingRecipesWhenLogIn(){
+
         if(localStorage.getItem('recipesAdded')){
             JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
-                console.log(e);
                 $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
                 $("#" + e).css('border-radius', '1rem');
             });
