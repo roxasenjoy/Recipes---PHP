@@ -51,7 +51,24 @@ $(document).ready(function(){
 
 
     $(".researchBtn").click(function(e) {
+        setupNewRecipesList();
+    });
 
+
+    function resetFilterStorage(){
+        localStorage.removeItem('time');
+    }
+    
+    function addBorderOfRecipesAdded(){
+        if(localStorage.getItem('recipesAdded')){
+            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
+                $("[data-id='" + e + "']").css('outline', 'thick solid rgb(225, 130, 45)');
+                $("[data-id='" + e + "']").css('border-radius', '1rem');
+            });
+        }
+    }
+
+    function setupNewRecipesList(){
         let time = localStorage.getItem('time');
         let research = $(".research").val();
         let canUserRecipesAddedFilter = $("#canUserRecipesAddedFilter").prop('checked');
@@ -78,7 +95,7 @@ $(document).ready(function(){
                         <a href="#" class="recipe-link" data-id="${recipe.id}" data-toggle="modal" data-target="#myModal">
                             <div class="container">
                                 <img src="${recipe.image}" alt="" loading="lazy">
-                                <p class="title">${recipe.name} ${recipe.id}</p>
+                                <p class="title">${recipe.name}</p>
                                 <div>
                                     ${recipe.time_total ? `
                                         <p class="kcalRecipes detailsContainer">
@@ -105,20 +122,6 @@ $(document).ready(function(){
                 console.log(error);
             }
         });
-    });
-
-
-    function resetFilterStorage(){
-        localStorage.removeItem('time');
-    }
-    
-    function addBorderOfRecipesAdded(){
-        if(localStorage.getItem('recipesAdded')){
-            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
-                $("[data-id='" + e + "']").css('outline', 'thick solid rgb(225, 130, 45)');
-                $("[data-id='" + e + "']").css('border-radius', '1rem');
-            });
-        }
     }
     
 

@@ -184,6 +184,7 @@ img{
     height: 50px;
     border-radius: 8px;
     padding: 0 16px;
+    margin: 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -107,6 +107,7 @@ $(document).ready(function(){
      * @param {*} selectedRecipeId 
      */
     function addRecipesToCart(selectedRecipeId){
+
         let recipesList = JSON.parse(localStorage.getItem('recipesAdded')) ?? [];
 
         if (recipesList.includes(selectedRecipeId)) {
@@ -130,10 +131,10 @@ $(document).ready(function(){
     function updateBorderOfRecipesSelected(selectedRecipeId, display){
 
         if(display){
-            $("#" + selectedRecipeId).css('outline', 'thick solid rgb(225, 130, 45)');
-            $("#" + selectedRecipeId).css('border-radius', '1rem');
+            $("[data-id='" + selectedRecipeId + "']").css('outline', 'thick solid rgb(225, 130, 45)');
+            $("[data-id='" + selectedRecipeId + "']").css('border-radius', '1rem');
         } else {
-            $("#" + selectedRecipeId).css('outline', 'initial');
+            $("[data-id='" + selectedRecipeId + "']").css('outline', 'initial');
         }
     }
 

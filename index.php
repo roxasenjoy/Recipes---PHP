@@ -98,7 +98,7 @@ if (isset($_POST['code'])) {
                               <!-- Filtre sur les recettes sélectionnées -->
                             <div class="containerRecipesAdded">
                                 <input type="checkbox" id="canUserRecipesAddedFilter" name="canUserRecipesAddedFilter">
-                                <label for="canUserRecipesAddedFilter">Afficher mes recettes</label>
+                                <label for="canUserRecipesAddedFilter">Afficher la liste de mes recettes</label>
                             </div>
 
                             <!-- Barre de recherche -->
