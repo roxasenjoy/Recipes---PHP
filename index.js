@@ -69,6 +69,20 @@ $(document).ready(function(){
         addRecipesToCart(selectedRecipeId);
     });
 
+
+    // Find the element by its ID
+    var scrollButton = document.getElementById('scrollButton');
+        
+    // Attach a click event listener to the element
+    scrollButton.addEventListener('click', function() {
+        // Scroll to the top of the page
+        window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Add smooth scrolling effect
+        });
+    });
+
+
     function setupRecipesAdded(){
         if(localStorage.getItem('recipesAdded')){
             const recipesAdded = localStorage.getItem('recipesAdded');

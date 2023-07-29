@@ -52,7 +52,7 @@ if (isset($_POST['code'])) {
                    
                     <nav class="filtreBtn-container">
                         <button class="navbar-toggler filtreBtn" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa-solid fa-filter"></i> Filtres
+                            <i class="fa-solid fa-filter"></i> <span class="removeText"> Filtres </span>
                         </button>
 
                         <?php if(!isset($_SESSION['user_id'])){ ?>
@@ -194,6 +194,11 @@ if (isset($_POST['code'])) {
                 </div>
             </div>
         <?php endif; ?>
+
+
+        <div class="arrowToUp" id="scrollButton" onclick="scrolToTheTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
 
     </body>
 

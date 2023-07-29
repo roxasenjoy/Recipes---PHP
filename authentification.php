@@ -41,6 +41,7 @@ if(!isset($_SESSION['user_id'])){
     <title>Connexion</title>
     <link rel="stylesheet" href="authentification.css">
     <script src="https://kit.fontawesome.com/128f69e9e2.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 

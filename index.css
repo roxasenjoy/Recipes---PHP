@@ -146,7 +146,7 @@ img{
 }
 
 .filtreBtn{
-    margin: 20px 0 0 0 !important;
+    margin: 0 0 0 0 !important;
     background: rgb(255, 255, 255);
     border-radius: 3rem !important;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 1px;
@@ -156,12 +156,16 @@ img{
     bottom: 0px !important;
     background-color: rgb(225, 130, 45) !important;
     transition: ease-in-out .1s !important;
+    font-size: 1.25rem;
+    line-height: 1;
 }
 
 .filtreBtn:hover{
     bottom: 5px !important;
     transition: ease-in-out .1s !important;
     background-color: rgb(196, 112, 38) !important;
+    text-decoration: none;
+    color: white;
 }
 
 .filtre{
@@ -186,7 +190,6 @@ img{
     height: 50px;
     border-radius: 8px;
     padding: 0 16px;
-    margin: 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -558,6 +561,19 @@ color: #fff;
     display: none;
 }
 
+.arrowToUp{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: rgb(225, 130, 45);
+    color: white;
+    font-weight: 100;
+    font-size: 2rem;
+    border-radius: 50%;
+    padding: 5px 17.5px;
+    z-index: 999;
+}
+
 @media only screen
 and (min-width : 700px) 
 and (max-width : 1000px) {
@@ -683,6 +699,14 @@ and (max-width : 700px) {
     .researchBtn,
     .containerRecipesAdded label{
         width: 100%;
+    }
+
+    .filtreBtn{
+        font-size: 1rem !important;
+    }
+
+    .removeText{
+        display: none;
     }
 
 }

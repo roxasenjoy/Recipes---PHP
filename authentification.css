@@ -8,6 +8,7 @@
 body{
 	background-color: #f8f8f8;
 }
+
 .container__login{
     position: absolute;
     top: 50%;
@@ -19,7 +20,6 @@ body{
     justify-content: center;
     width: 600px;
     height: 50%;
-   
 }
 
 .connexion__elements{
@@ -150,7 +150,7 @@ and (max-width : 1000px) {
 }
 
 @media (min-width: 576px){
-
+   
 }
 
 
@@ -158,5 +158,36 @@ and (max-width : 1000px) {
 and (min-width : 0px) 
 and (max-width : 700px) {
 
+    .container__login{
+        transform: translate(-50%, -50%);
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+    }
 
+    .container__info{
+        width: 100%;
+    }
+
+    h2{
+        line-height: initial;
+    }
+
+    .container__info input{
+        margin-bottom: 10px;
+        font-size: 1rem;
+        line-height: 1;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .container__info button[type="submit"]{
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .createAccount .registerLink{
+        font-size: 0.75rem;
+    }
 }
