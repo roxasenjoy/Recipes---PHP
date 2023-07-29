@@ -24,7 +24,7 @@ function addCodeHash(){
 function verifyCode($code){
     global $db;
  
-    $res = $db->querySingle('SELECT code FROM code WHERE id = 1');
+    $res = $db->querySingle('SELECT code FROM code WHERE id = 8');
     return password_verify($code, $res);
 }
 
