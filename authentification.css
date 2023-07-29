@@ -1,0 +1,162 @@
+*{
+  	margin: 0;
+  	padding: 0;
+	box-sizing: 0;
+	font-family: Catamaran, sans-serif;
+}
+
+body{
+	background-color: #f8f8f8;
+}
+.container__login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 50%;
+   
+}
+
+.connexion__elements{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+    margin: 20px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 1px;
+}
+
+.container__info{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 80%;
+    
+}
+
+.container__info input{
+    background-clip: padding-box;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 1rem;
+    box-shadow: none;
+    color: rgb(74, 74, 74);
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 2;
+    padding: 0.5rem 1rem;
+    transition: border-color 0.3s ease-in-out 0s;
+}
+
+.container__info button[type="submit"]{
+    background-color: rgb(0, 166, 90);
+    border: 1px solid rgb(0, 166, 90);
+    border-radius: 2rem;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 700;
+    height: auto;
+    line-height: 1.4rem;
+    outline: none;
+    padding: 0.5rem 1rem;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out 0s, color 0.3s ease-in-out 0s, border-color 0.3s ease-in-out 0s;
+    vertical-align: middle;
+    width: auto;
+    display: table;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+h2{
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 3rem;
+    text-align: center;
+    color: rgb(74, 74, 74);
+}
+
+.createAccount{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.createAccount .registerLink{
+    color: rgb(0, 166, 90);
+    padding-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.error{
+    color: red;
+    margin-bottom: 25px;
+}
+
+.backRecipes{
+    border: solid 2px rgb(0, 166, 90);
+    padding: 10px 20px;
+    margin: 25px;
+    display: inline-block;
+    border-radius: 8px;
+    transition: 0.5s ease-in-out;
+    color: rgb(0, 166, 90);
+}
+
+.back{
+    color: rgb(0, 166, 90);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 900;
+    transition: 0.5s ease-in-out;
+}
+
+.backRecipes:hover{
+    background-color: rgb(0, 166, 90);
+    border: solid 2px rgb(0, 166, 90);
+    transition: 0.5s ease-in-out;
+}
+
+.backRecipes:hover .back{
+    color: white;
+    transition: 0.5s ease-in-out;
+}
+
+form{
+    width: 100%;
+    display: inline-grid;
+}
+
+@media only screen
+and (min-width : 700px) 
+and (max-width : 1000px) {
+
+}
+
+@media (min-width: 576px){
+
+}
+
+
+@media only screen
+and (min-width : 0px) 
+and (max-width : 700px) {
+
+
+}

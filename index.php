@@ -32,13 +32,12 @@ if (isset($_POST['code'])) {
 
         <link rel="stylesheet" href="index.css" type="text/css">
         <link rel="stylesheet" href="login-form.css" type="text/css">
+        <link rel="stylesheet" href="connexion.css" type="text/css">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <script src="https://kit.fontawesome.com/128f69e9e2.js"></script>
-
-
-        
+  
     </head>
 
     <body>
@@ -55,6 +54,17 @@ if (isset($_POST['code'])) {
                         <button class="navbar-toggler filtreBtn" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fa-solid fa-filter"></i> Filtres
                         </button>
+
+                        <?php if(!isset($_SESSION['user_id'])){ ?>
+                            <a href="authentification.php?type=login" class="filtreBtn">
+                                <i class="fa-solid fa-user"></i> Se connecter
+                            </a>
+                        <?php } else { ?>
+                            <a href="logout.php" class="filtreBtn">
+                                <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+                            </a>
+                        <?php } ?>
+                        
                     </nav>
 
                     <div class="collapse" id="navbarToggleExternalContent">
@@ -175,11 +185,11 @@ if (isset($_POST['code'])) {
                     <?php if (isset($errorMsg)) : ?>
                         <p class="error"><?php echo $errorMsg; ?></p>
                     <?php endif; ?>
+
                         <form class="login-form" method="POST">
                             <input type="text" id="code" name="code" placeholder="Rentrer le code de connexion">
                             <button type="submit" class="message">Accéder aux recettes</button>
                         </form>
-      
                     </div>
                 </div>
             </div>
