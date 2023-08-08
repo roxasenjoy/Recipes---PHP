@@ -160,10 +160,6 @@ if (isset($_POST['code'])) {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
-                        <div class="addCart" id="addCart" onClick="addRecipesToCart()">
-                            Ajouter à la liste de mes recettes
-                        </div>
-
                         <div class="modal-header">
                             <img src="" alt="" id="img-recipes">
                         </div>
@@ -171,6 +167,20 @@ if (isset($_POST['code'])) {
                         <div class="modal-body">
 
                         </div>
+
+                        <?php if(!isset($_SESSION['user_id'])){ ?>
+                            <a href="authentification.php?type=login">
+                                <!-- <div class="addCart" id="addCart" onClick="addRecipesToCart()"> -->
+                                <div class="addCart">
+                                    Connectez-vous pour ajouter une recette
+                                </div>
+                            </a>
+                           
+                        <?php } else { ?>
+                            <div class="addCart" id="addCart">
+                                    Ajouter à ma liste
+                            </div>
+                        <?php } ?>
 
                     </div><!-- modal-content -->
                 </div><!-- modal-dialog -->

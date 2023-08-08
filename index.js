@@ -2,7 +2,6 @@ $(document).ready(function(){
 
     let selectedRecipeId = null; // Cette variable va stocker l'id de la recette sélectionnée
     addExistingRecipesWhenLogIn();
-    setupRecipesAdded();
 
     $("#closeModal").click(function(){
         $("#myModal").modal('hide');
@@ -12,7 +11,7 @@ $(document).ready(function(){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         
         let id = selectedRecipeId = $(this).data('id');  // Récupère l'ID de l'élément cliqué
-        updateAddCart(id);
+        updateAddCartMessage(id);
 
         // Envoie une requête AJAX au serveur avec l'ID
         $.ajax({
@@ -57,6 +56,10 @@ $(document).ready(function(){
                 $(".modal-body").html(modalBody);
 
                 $('#myModal').modal('show');
+
+              
+
+                
             },
             error: function(error){
                 console.log(error);
@@ -64,41 +67,55 @@ $(document).ready(function(){
         });
     });
 
-    /* Ajouter les éléments dans le localStorage */
-    $("#addCart").click(function() {
-        addRecipesToCart(selectedRecipeId);
-    });
+   
 
-
-    // Find the element by its ID
+    /**
+     * Permet de remonter en haut de la page
+     */
     var scrollButton = document.getElementById('scrollButton');
-        
-    // Attach a click event listener to the element
-    scrollButton.addEventListener('click', function() {
-        // Scroll to the top of the page
-        window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Add smooth scrolling effect
-        });
+        scrollButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
     });
 
+    
+    /**
+     * Stocker en base de données la recette que l'utilisateur vient de sélectionner.
+     */
+    $('#addCart').click(function(){
 
-    function setupRecipesAdded(){
-        if(localStorage.getItem('recipesAdded')){
-            const recipesAdded = localStorage.getItem('recipesAdded');
+        $.ajax({
+            url: 'recipes_added.php',
+            type: 'GET',
+            data: { 
+                functionToUse: 'addOrRemoveRecipe',
+                selectedRecipeId: selectedRecipeId 
+            },
+            success: function(response) {},
+        });
 
-            // Envoie une requête AJAX au serveur avec l'ID
-            $.ajax({
-                url: 'recipes_added.php',
-                type: 'GET',
-                data: { recipesAdded: recipesAdded },
-                success: function(response) {
-                    // console.log(response);
-                    
-                },
-            });
+    });
+        
+
+
+    /**
+     * Pour toutes les recettes présentes dans la base de données, l'utilisateur se verra 
+     */
+    function updateAddCartMessage(id){
+        const isChecked = $('#' + id).data('check');
+        console.log(isChecked);
+
+        if(isChecked === true){
+            // Changer le texte + la couleur du fond - DEJA PRESENT
+            $('#addCart').css("background-color", "#dc3545");
+            $("#addCart").text("Supprimer de ma liste");
+        } else {
+            // Changer le texte + la couleur du fond - DEJA PRESENT
+            $('#addCart').css("background-color", "#e1822d");
+            $("#addCart").text("Ajouter à ma liste");
         }
-
         
     }
 
@@ -107,66 +124,27 @@ $(document).ready(function(){
      */
     function addExistingRecipesWhenLogIn(){
 
-        if(localStorage.getItem('recipesAdded')){
-            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
-                $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
-                $("#" + e).css('border-radius', '1rem');
-            });
-        }
-        
-    }
 
-    /**
-     * Ajoute les recettes dans le localStorage
-     * @param {*} selectedRecipeId 
-     */
-    function addRecipesToCart(selectedRecipeId){
+        // Ajout du contour de toutes les recettes disponible en base de données
+        $.ajax({
+            url: 'recipes_added.php',
+            type: 'GET',
+            data: { 
+                functionToUse: 'getRecipesAddedByUser',
+                selectedRecipeId: selectedRecipeId 
+            },
+            success: function(response) {
 
-        let recipesList = JSON.parse(localStorage.getItem('recipesAdded')) ?? [];
+                const listRecipes = response['list_recipes'];
 
-        if (recipesList.includes(selectedRecipeId)) {
-            // Suppression de l'id déjà présent
-            recipesList = recipesList.filter(id => id !== selectedRecipeId);
-            updateBorderOfRecipesSelected(selectedRecipeId, false);
-          } else {
-            // Ajout de l'élément dans la liste
-            recipesList.push(selectedRecipeId);
-            updateBorderOfRecipesSelected(selectedRecipeId, true);
-          }
-
-        localStorage.setItem('recipesAdded', JSON.stringify(recipesList));
-        updateAddCart(selectedRecipeId);
-    }
-
-    /**
-     * Rajouter un contour pour les recettes qui sont sélectionnés.
-     * @param {*} selectedRecipeId 
-     */
-    function updateBorderOfRecipesSelected(selectedRecipeId, display){
-
-        if(display){
-            $("[data-id='" + selectedRecipeId + "']").css('outline', 'thick solid rgb(225, 130, 45)');
-            $("[data-id='" + selectedRecipeId + "']").css('border-radius', '1rem');
-        } else {
-            $("[data-id='" + selectedRecipeId + "']").css('outline', 'initial');
-        }
-    }
-
-    /**
-     * Modification du message d'ajout à la liste des recettes pour prévenir qu'il existe déjà.
-     * @param {*} selectedRecipeId 
-     */
-    function updateAddCart(selectedRecipeId){
-        const idIsInRecipesAdded = localStorage.getItem('recipesAdded') ? localStorage.getItem('recipesAdded').includes(selectedRecipeId) : false;
-
-        if(idIsInRecipesAdded){
-            // Changer le texte + la couleur du fond - DEJA PRESENT
-            $('#addCart').css("background-color", "#dc3545");
-            $("#addCart").text("Supprimer de la liste de mes recettes");
-        } else {
-            $('#addCart').css("background-color", "rgb(225, 130, 45)");
-            $("#addCart").text("Ajouter à la liste des mes recettes");
-        }
+                // Return la liste de toutes les recettes sélectionnées.
+                listRecipes.forEach(function(e){
+                    $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
+                    $("#" + e).css('border-radius', '1rem');
+                    $("#" + e).attr('data-check', true);
+                });
+            },
+        }); 
     }
     
     /**
