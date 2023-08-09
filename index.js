@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     let selectedRecipeId = null; // Cette variable va stocker l'id de la recette sélectionnée
-    addExistingRecipesWhenLogIn();
+    addExistingRecipes();
 
     $("#closeModal").click(function(){
         $("#myModal").modal('hide');
@@ -84,67 +84,64 @@ $(document).ready(function(){
     /**
      * Stocker en base de données la recette que l'utilisateur vient de sélectionner.
      */
-    $('#addCart').click(function(){
-
+    const $addCart = $('#addCart');
+    $addCart.click(() => {
         $.ajax({
             url: 'recipes_added.php',
             type: 'GET',
             data: { 
                 functionToUse: 'addOrRemoveRecipe',
                 selectedRecipeId: selectedRecipeId 
-            },
-            success: function(response) {},
+            }, 
+            success: function(response) {
+                displayDesignIfRecipeSelected(response, selectedRecipeId);
+            }
         });
-
     });
-        
 
-
-    /**
-     * Pour toutes les recettes présentes dans la base de données, l'utilisateur se verra 
-     */
-    function updateAddCartMessage(id){
-        const isChecked = $('#' + id).data('check');
-        console.log(isChecked);
-
-        if(isChecked === true){
-            // Changer le texte + la couleur du fond - DEJA PRESENT
-            $('#addCart').css("background-color", "#dc3545");
-            $("#addCart").text("Supprimer de ma liste");
-        } else {
-            // Changer le texte + la couleur du fond - DEJA PRESENT
-            $('#addCart').css("background-color", "#e1822d");
-            $("#addCart").text("Ajouter à ma liste");
-        }
-        
+    function updateAddCartMessage(id) {
+        const isChecked = $(`#${id}`).data('check');
+        updateButtonDesignAndText($addCart, isChecked);
     }
 
-    /**
-     * Ajoute le contour pour toutes les recettes qui sont déjà sélectionnées
-     */
-    function addExistingRecipesWhenLogIn(){
-
-
-        // Ajout du contour de toutes les recettes disponible en base de données
+    function addExistingRecipes() {
         $.ajax({
             url: 'recipes_added.php',
             type: 'GET',
             data: { 
-                functionToUse: 'getRecipesAddedByUser',
-                selectedRecipeId: selectedRecipeId 
+                functionToUse: 'getRecipesAddedByUser'
             },
             success: function(response) {
-
                 const listRecipes = response['list_recipes'];
-
-                // Return la liste de toutes les recettes sélectionnées.
-                listRecipes.forEach(function(e){
-                    $("#" + e).css('outline', 'thick solid rgb(225, 130, 45)');
-                    $("#" + e).css('border-radius', '1rem');
-                    $("#" + e).attr('data-check', true);
-                });
+                listRecipes.forEach(recipe => displayDesignIfRecipeSelected(true, recipe));
             },
         }); 
+    }
+
+    function displayDesignIfRecipeSelected(isShow, idRecipe) {
+        const $recipeElement = $(`#${idRecipe}`);
+
+        if (isShow) {
+            $recipeElement.css({
+                'outline': 'thick solid rgb(225, 130, 45)',
+                'border-radius': '1rem'
+            }).attr('data-check', true);
+        } else {
+            $recipeElement.css({
+                'outline': 'initial',
+                'border-radius': 'initial'
+            }).attr('data-check', false);
+        }
+
+        updateButtonDesignAndText($addCart, isShow);
+    }
+
+    function updateButtonDesignAndText($element, isShow) {
+        if (isShow) {
+            $element.css("background-color", "#dc3545").text("Supprimer de ma liste");
+        } else {
+            $element.css("background-color", "#e1822d").text("Ajouter à ma liste");
+        }
     }
     
     /**
@@ -202,10 +199,10 @@ $(document).ready(function(){
     function addTimeAndKcal(recette){
         if(recette.kcal){
             return '  <h6  class="time"> \
-                                Temps total ' + recette.time_total + ' min , \
-                                Préparation ' + recette.time_preparation + ' min,  \
-                                ' + recette.kcal + ' kcal \
-                            </h6>';
+                            Temps total ' + recette.time_total + ' min , \
+                            Préparation ' + recette.time_preparation + ' min,  \
+                            ' + recette.kcal + ' kcal \
+                    </h6>';
         }
 
         return '';

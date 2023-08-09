@@ -58,15 +58,7 @@ $(document).ready(function(){
     function resetFilterStorage(){
         localStorage.removeItem('time');
     }
-    
-    function addBorderOfRecipesAdded(){
-        if(localStorage.getItem('recipesAdded')){
-            JSON.parse(localStorage.getItem('recipesAdded')).forEach(function(e){
-                $("[data-id='" + e + "']").css('outline', 'thick solid rgb(225, 130, 45)');
-                $("[data-id='" + e + "']").css('border-radius', '1rem');
-            });
-        }
-    }
+
 
     function setupNewRecipesList(){
         let time = localStorage.getItem('time');
@@ -92,7 +84,7 @@ $(document).ready(function(){
 
                     // Create a new recipe DOM element using the recipe data
                     listRecipes += `
-                        <a href="#" class="recipe-link" data-id="${recipe.id}" data-toggle="modal" data-target="#myModal">
+                        <a href="#" class="recipe-link" data-id="${recipe.id}" id="${recipe.id}" data-toggle="modal" data-target="#myModal" data-check="false">
                             <div class="container">
                                 <img src="${recipe.image}" alt="" loading="lazy">
                                 <p class="title">${recipe.name}</p>
@@ -122,6 +114,52 @@ $(document).ready(function(){
                 console.log(error);
             }
         });
+    }
+
+    function addBorderOfRecipesAdded(){
+        addExistingRecipes();
+    }
+
+    const $addCart = $('#addCart');
+    function addExistingRecipes() {
+
+        $.ajax({
+            url: 'recipes_added.php',
+            type: 'GET',
+            data: { 
+                functionToUse: 'getRecipesAddedByUser'
+            },
+            success: function(response) {
+                const listRecipes = response['list_recipes'];
+                listRecipes.forEach(recipe => displayDesignIfRecipeSelected(true, recipe));
+            },
+        }); 
+    }
+
+    function displayDesignIfRecipeSelected(isShow, idRecipe) {
+        const $recipeElement = $(`#${idRecipe}`);
+
+        if (isShow) {
+            $recipeElement.css({
+                'outline': 'thick solid rgb(225, 130, 45)',
+                'border-radius': '1rem'
+            }).attr('data-check', true);
+        } else {
+            $recipeElement.css({
+                'outline': 'initial',
+                'border-radius': 'initial'
+            }).attr('data-check', false);
+        }
+
+        updateButtonDesignAndText($addCart, isShow);
+    }
+
+    function updateButtonDesignAndText($element, isShow) {
+        if (isShow) {
+            $element.css("background-color", "#dc3545").text("Supprimer de ma liste");
+        } else {
+            $element.css("background-color", "#e1822d").text("Ajouter à ma liste");
+        }
     }
     
 
