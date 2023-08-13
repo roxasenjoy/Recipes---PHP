@@ -3,8 +3,18 @@
 $db = new SQLite3('db-pp.db');
 
 
-function getRecipes($time = '', $researchText ='', $recipesAdded = '', $canUserRecipesAddedFilter = false) {
+function getRecipes($time = '', $researchText ='', $userId = '', $canUserRecipesAddedFilter = false) {
     global $db;
+
+    /* Obtenir la liste des recettes ajoutées par l'utilisateur */
+    $all_user_recipes = $db->prepare('SELECT recipe_id FROM user_recipes WHERE user_id = :user_id');
+    $all_user_recipes->bindValue(':user_id', $userId);
+    $result = $all_user_recipes->execute();
+
+    $recipesAdded = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        array_push($recipesAdded, $row['recipe_id']);
+    }
 
     $recettes = [];
 
@@ -24,7 +34,6 @@ function getRecipes($time = '', $researchText ='', $recipesAdded = '', $canUserR
         $query .= ' ORDER BY id DESC';
     }
     
-
     $results = $db->query($query);
 
     while ($row = $results->fetchArray()) {
@@ -35,6 +44,7 @@ function getRecipes($time = '', $researchText ='', $recipesAdded = '', $canUserR
 }
 
 function addRecipesAdded($recipesAdded, $canUserRecipesAddedFilter){
+
     $caseStatement = 'CASE id ';
 
     if (!empty($recipesAdded) && $canUserRecipesAddedFilter === 'true') {

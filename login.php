@@ -65,15 +65,6 @@ function createAccount($firstName, $lastName, $email, $password, $verifyPassword
         return 'Les mots de passe ne correspondent pas.';
     }
 
-    // // check if the email is already used
-    // $stmt = $db->prepare('SELECT * FROM users WHERE email = :email');
-    // $stmt->bindValue(':email', $email);
-    // $stmt->execute();
-    // $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    // if ($user) {
-    //     return "L'email est déjà utilisé.";
-    // }
-
     // insert the new user
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $db->prepare('INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)');

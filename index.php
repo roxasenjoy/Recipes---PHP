@@ -1,19 +1,18 @@
 <?php
-require 'recipes.php'; 
-require 'login.php'; 
-session_unset();
-session_start();
+    require 'recipes.php'; 
+    require 'login.php'; 
+    session_unset();
+    session_start();
 
-if (isset($_POST['code'])) {
-    $isValid = verifyCode($_POST['code']);
-    if ($isValid) {
-        $_SESSION['is_authenticated'] = true;
-    } else {
-        $errorMsg = "Mauvais code";
+    if (isset($_POST['code'])) {
+        $isValid = verifyCode($_POST['code']);
+        if ($isValid) {
+            $_SESSION['is_authenticated'] = true;
+        } else {
+            $errorMsg = "Mauvais code";
+        }
     }
-}
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +36,7 @@ if (isset($_POST['code'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <script src="https://kit.fontawesome.com/128f69e9e2.js"></script>
-  
+
     </head>
 
     <body>
@@ -49,7 +48,6 @@ if (isset($_POST['code'])) {
                 <!-- <h1> Des idées de recettes  </h1> -->
 
                 <div class="pos-f-t">
-                   
                     <nav class="filtreBtn-container">
                         <button class="navbar-toggler filtreBtn" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fa-solid fa-filter"></i> <span class="removeText"> Filtres </span>
@@ -75,8 +73,6 @@ if (isset($_POST['code'])) {
                             <!-- Barre de recherche -->
 
                             <!-- Filtre sur les ingrédients -->
-
-                           
 
                             <!-- Filtre sur le temps de préparation -->
                             <div class="container-filtre">
@@ -105,7 +101,7 @@ if (isset($_POST['code'])) {
                                 </ul>
                             </div>
 
-                              <!-- Filtre sur les recettes sélectionnées -->
+                            <!-- Filtre sur les recettes sélectionnées -->
                             <div class="containerRecipesAdded">
                                 <input type="checkbox" id="canUserRecipesAddedFilter" name="canUserRecipesAddedFilter">
                                 <label for="canUserRecipesAddedFilter">Afficher la liste de mes recettes</label>
@@ -113,8 +109,6 @@ if (isset($_POST['code'])) {
 
                             <!-- Barre de recherche -->
                             <input type="text" class="research" placeholder="Rechercher une recette...">
-
-                          
                             
                             <button class="researchBtn">
                                 Filtrer
@@ -122,7 +116,6 @@ if (isset($_POST['code'])) {
                         </div>
                     </div>
                 </div> 
-                      
 
                 <!-- Liste contenants toutes les recettes disponibles -->
                 <div class="recipes-list">
@@ -149,7 +142,6 @@ if (isset($_POST['code'])) {
 
             </div>
 
-          
             <!-- Modal -->
             <div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
@@ -175,7 +167,6 @@ if (isset($_POST['code'])) {
                                     Connectez-vous pour ajouter une recette
                                 </div>
                             </a>
-                           
                         <?php } else { ?>
                             <div class="addCart" id="addCart">
                                     Ajouter à ma liste
@@ -185,6 +176,10 @@ if (isset($_POST['code'])) {
                     </div><!-- modal-content -->
                 </div><!-- modal-dialog -->
             </div><!-- modal -->
+
+            <div class="arrowToUp" id="scrollButton" onclick="scrolToTheTop()">
+                <i class="fa-solid fa-arrow-up"></i>
+            </div>
 
         <?php else: ?>
 
@@ -204,11 +199,6 @@ if (isset($_POST['code'])) {
                 </div>
             </div>
         <?php endif; ?>
-
-
-        <div class="arrowToUp" id="scrollButton" onclick="scrolToTheTop()">
-            <i class="fa-solid fa-arrow-up"></i>
-        </div>
 
     </body>
 
