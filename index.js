@@ -84,13 +84,13 @@ $(document).ready(function(){
 
 
     $("#closeCartModal").click(function(e){
+        console.log('test');
         e.preventDefault();
-        $("#cartModalBtn").modal('hide');
+        $("#cartModal").modal('hide');
     });
 
     // Afficher le panier
-    $("#cartModalBtn").click(function(e){
-        $("#cartModal").modal('show');
+    $(document).on("click", "#cartModalBtn", function(e){
         e.preventDefault();
         $.ajax({
             url: 'recipes_added.php',

@@ -141,11 +141,25 @@ img{
 .modal{
     padding-right: initial !important;
 }
+
+.cartModal::-webkit-scrollbar{
+    display: none;
+}
+
+.cartModal{
+    position: fixed;
+    background: red;
+    height: 100%;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+}
+
 .cartContainer{
     background-color: white;
     color: black;
     text-align: center;
-    width: 40%;
+    width: 100%;
     min-height: 100%;
     padding: 0;
     margin: 0 0 0 auto;
@@ -595,7 +609,7 @@ color: #fff;
 	max-width: initial !important;
 }
 
-.closeModal{
+.closeModal, .closeCartModal{
     display: none;
 }
 
@@ -641,16 +655,16 @@ and (max-width : 1000px) {
 and (min-width : 0px) 
 and (max-width : 700px) {
 
-    .closeModal{
+    .closeModal, .closeCartModal{
         display: initial;
-        z-index: 50;
+        z-index: 2000;
         font-size: 50px;
         position: absolute;
         top: 1.5%;
         right: 1.5%;
     }
 
-    .closeModal i{
+    .closeModal i, .closeCartModal i{
         background: white;
         color: rgb(225, 130, 45);
         border-radius: 50%;

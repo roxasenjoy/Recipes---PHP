@@ -64,7 +64,7 @@
                                         <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
                                     </a>
 
-                                    <button class="navbar-toggler filtreBtn cartBtn" type="button" id="cartModalBtn" data-toggle="cartModal" data-target="#myModal">
+                                    <button class="navbar-toggler filtreBtn cartBtn" type="button" data-toggle="modal" data-target="#cartModal" id="cartModalBtn">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
                                 </div>
@@ -151,7 +151,7 @@
             </div>
 
             <!-- Cart Modal -->
-            <div class="modal left fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModal">
+            <!-- <div class="modal left fade" id="cartModal" tabindex="-1" role="dialog">
 
                 <div class="closeModal" id="closeCartModal">
                     <i class="fa-solid fa-xmark"></i>
@@ -166,7 +166,31 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
+            <!-- Modal -->
+            <div class="modal left fade" id="cartModal" tabindex="-1" role="dialog">
+
+                <div class="closeModal" id="closeCartModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="cartContainer">
+                            <div class="cartContent">
+                                <h3> Panier</h3>
+                                <hr>
+                                <div class="cart-elements">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div><!-- modal-content -->
+                </div><!-- modal-dialog -->
+            </div><!-- modal -->
 
             <!-- Modal -->
             <div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
