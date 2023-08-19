@@ -1,6 +1,6 @@
 <?php
 
-$db = new SQLite3('db-pp.db');
+$db = new SQLite3('db-test.db');
 
 /**
  * Permet d'ajouter un code de sécurité pour se connecter

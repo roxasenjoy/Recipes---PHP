@@ -7,6 +7,10 @@ $(document).ready(function(){
         $("#myModal").modal('hide');
     });
 
+
+    /**
+     * Génération du texte se trouvant dans la modal de la recette
+     */
     $(document).on("click", ".recipe-link", function(e){
         e.preventDefault();  // Empêche l'action par défaut (la navigation)
         
@@ -57,8 +61,6 @@ $(document).ready(function(){
 
                 $('#myModal').modal('show');
 
-              
-
                 
             },
             error: function(error){
@@ -67,7 +69,7 @@ $(document).ready(function(){
         });
     });
 
-   
+
 
     /**
      * Permet de remonter en haut de la page
@@ -80,12 +82,69 @@ $(document).ready(function(){
             });
     });
 
+
+    $("#closeCartModal").click(function(e){
+        e.preventDefault();
+        $("#cartModalBtn").modal('hide');
+    });
+
+    // Afficher le panier
+    $("#cartModalBtn").click(function(e){
+        $("#cartModal").modal('show');
+        e.preventDefault();
+        $.ajax({
+            url: 'recipes_added.php',
+            type: 'GET',
+            data: { 
+                functionToUse: 'addRecipesInCart'
+            },
+
+            success: function(response) {
+
+                let ingredients = {};
+
+                response['list_ingredients'].forEach(item => {
+                    const match = item.match(/(\d+(\.\d+)?)? x\n(.+)/);
+                    
+                    if (match) {
+                        const quantity = parseFloat(match[1]) || 1;
+                        const ingredientName = match[3].trim();
+
+                        if (ingredients[ingredientName]) {
+                            ingredients[ingredientName] += quantity;
+                        } else {
+                            ingredients[ingredientName] = quantity;
+                        }
+                    } else {
+                        const ingredientName = item.trim();
+                        ingredients[ingredientName] = ingredients[ingredientName] ? ingredients[ingredientName] + 1 : 1;
+                    }
+                });
+
+                // Trier les ingrédients par ordre alphabétique
+                const sortedIngredients = Object.entries(ingredients).sort((a, b) => a[0].localeCompare(b[0]));
+
+                let listIngredients = '';
+                // Affichage des ingrédients et de leurs quantités
+                for (let [name, quantity] of sortedIngredients) {
+                    console.log();
+
+                    listIngredients += `<p>${quantity} x ${name} </p>`;
+                }
+                $(".cart-elements").html(listIngredients);
+
+
+            }
+        });
+
+    });
     
     /**
      * Stocker en base de données la recette que l'utilisateur vient de sélectionner.
      */
     const $addCart = $('#addCart');
-    $addCart.click(() => {
+    $addCart.click((e) => {
+        e.preventDefault();
         $.ajax({
             url: 'recipes_added.php',
             type: 'GET',
@@ -104,6 +163,9 @@ $(document).ready(function(){
         updateButtonDesignAndText($addCart, isChecked);
     }
 
+    /**
+     * Ajouter toutes les recettes déjà sélectionnées par l'utilisateur
+     */
     function addExistingRecipes() {
         $.ajax({
             url: 'recipes_added.php',
@@ -118,6 +180,9 @@ $(document).ready(function(){
         }); 
     }
 
+    /**
+     * Modifier le design des recettes sélectionnées par l'utilisateur
+     */
     function displayDesignIfRecipeSelected(isShow, idRecipe) {
         const $recipeElement = $(`#${idRecipe}`);
 
@@ -136,6 +201,9 @@ $(document).ready(function(){
         updateButtonDesignAndText($addCart, isShow);
     }
 
+    /*
+    Modification du bouton qui permet de 'ajouter ou de suppprimer la recette de la liste
+    */
     function updateButtonDesignAndText($element, isShow) {
         if (isShow) {
             $element.css("background-color", "#dc3545").text("Supprimer de ma liste");

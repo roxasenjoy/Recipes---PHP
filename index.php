@@ -53,16 +53,24 @@
                             <i class="fa-solid fa-filter"></i> <span class="removeText"> Filtres </span>
                         </button>
 
-                        <?php if(!isset($_SESSION['user_id'])){ ?>
-                            <a href="authentification.php?type=login" class="filtreBtn">
-                                <i class="fa-solid fa-user"></i> Se connecter
-                            </a>
-                        <?php } else { ?>
-                            <a href="logout.php" class="filtreBtn">
-                                <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
-                            </a>
-                        <?php } ?>
                         
+                            <?php if(!isset($_SESSION['user_id'])){ ?>
+                                <a href="authentification.php?type=login" class="filtreBtn">
+                                    <i class="fa-solid fa-user"></i> Se connecter
+                                </a>
+                            <?php } else { ?>
+                                <div class="container-user">
+                                    <a href="logout.php" class="filtreBtn">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+                                    </a>
+
+                                    <button class="navbar-toggler filtreBtn cartBtn" type="button" id="cartModalBtn" data-toggle="cartModal" data-target="#myModal">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            <?php } ?>
+
+                     
                     </nav>
 
                     <div class="collapse" id="navbarToggleExternalContent">
@@ -140,6 +148,24 @@
                 </div>
                 <!-- Fin de la liste des recettes -->
 
+            </div>
+
+            <!-- Cart Modal -->
+            <div class="modal left fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModal">
+
+                <div class="closeModal" id="closeCartModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
+                <div class="cartContainer">
+                    <div class="cartContent">
+                        <h3> Panier</h3>
+                        <hr>
+                        <div class="cart-elements">
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Modal -->

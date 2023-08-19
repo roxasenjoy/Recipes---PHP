@@ -1,7 +1,6 @@
 <?php
 
-$db = new SQLite3('db-pp.db');
-
+$db = new SQLite3('db-test.db');
 
 function getRecipes($time = '', $researchText ='', $userId = '', $canUserRecipesAddedFilter = false) {
     global $db;

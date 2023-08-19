@@ -133,6 +133,38 @@ img{
 	padding-right: 5px;
 }
 
+/******************
+*
+* Design de la modal du panier
+*
+*******************/
+.modal{
+    padding-right: initial !important;
+}
+.cartContainer{
+    background-color: white;
+    color: black;
+    text-align: center;
+    width: 40%;
+    min-height: 100%;
+    padding: 0;
+    margin: 0 0 0 auto;
+    z-index: 100;
+}
+
+.cart-elements{
+    flex-wrap: wrap;
+    padding: 0 4px;
+    justify-content: center;
+}
+
+.cart-elements p{
+    margin: 5px;
+    order: 1;
+}
+
+
+
 /*******************
 *
 *  Design filtre 
@@ -158,6 +190,10 @@ img{
     transition: ease-in-out .1s !important;
     font-size: 1.25rem;
     line-height: 1;
+}
+
+.cartBtn{
+    margin-left: 10px !important;
 }
 
 .filtreBtn:hover{
